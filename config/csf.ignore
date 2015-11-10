@@ -1,0 +1,39 @@
+####################################################
+## csf.ignore                                     ##
+## Part of CSF Firewall                           ##
+## File is managed by Salt, do not manually edit. ##
+## SLS for CSF Firewall created by ALinuxNinja    ##
+####################################################
+
+{%- if csf['firewall']['base']['rule'] -%}
+{%- for rule, rule_opts in csf['firewall']['base']['rule']|dictsort -%}
+{%- if rule_opts['action'] == 'ignore' %}
+#################################################
+## Rule: {{ rule }}
+## {{ rule_opts['desc'] }}
+#################################################
+{%- if rule_opts['port'] is defined -%}
+{% for port in rule_opts['port']['number'] %}
+{%- for address in rule_opts['address']['ip'] %}
+{{ rule_opts['protocol'] }}|{{ rule_opts['direction'] }}|
+{%- if rule_opts['port']['type'] == 'destination' -%}
+d={{ port }}|
+{%- elif rule_opts['port']['type'] == 'source' -%}
+s={{ port }}|
+{%- endif -%}
+{%- if rule_opts['address']['type'] == 'destination' -%}
+d={{ address }}
+{%- elif rule_opts['address']['type'] == 'source' -%}
+s={{ address }}
+{%- endif -%}
+{% endfor -%}
+{% endfor -%}
+{%- endif %}
+{%- if rule_opts['subnet'] is defined -%}
+{% for subnet in rule_opts['subnet'] %}
+{{ subnet }}
+{%- endfor -%}
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endif %}

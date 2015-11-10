@@ -1,0 +1,34 @@
+Ubuntu:
+  common:
+    packages:
+      - iptables
+      - libpython2.7
+      - augeas-tools
+      - augeas-lenses
+      - libaugeas0
+      - python-augeas
+      - libwww-perl
+      - e2fsprogs
+      - unzip
+Debian:
+  common:
+    packages:
+      - iptables
+      - libpython2.7
+      - augeas-tools
+      - augeas-lenses
+      - libaugeas0
+      - python-augeas
+      - libwww-perl
+      - e2fsprogs
+      - unzip
+CentOS:
+  common:
+    packages:
+      - iptables
+      - augeas
+      - augeas-libs
+      - python-augeas
+      - perl-libwww-perl
+      - e2fsprogs
+      - unzip
