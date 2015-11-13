@@ -229,6 +229,8 @@ csf_csfpre:
     - group: root
     - mode: 644
     - template: jinja
+    - context:
+      csf: {{ csf }}
 csf_csfpost:
   file.managed:
     - source: salt://csf/config/csfpost.sh
@@ -237,3 +239,5 @@ csf_csfpost:
     - group: root
     - mode: 644
     - template: jinja
+    - context:
+      csf: {{ csf }}

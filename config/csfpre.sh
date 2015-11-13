@@ -7,20 +7,22 @@
 ####################################################
 
 {%- if csf['firewall']['advanced'] is defined -%}
-{%- if csf['firewall']['advanced']['ipv4'] -%}
-{%- for rule, rule_opts in csf['firewall']['advanced']['ipv4'].iter() %}
+{%- if csf['firewall']['advanced']['ipv4'] and csf['firewall']['advanced']['ipv4']['rule'] is defined and csf['firewall']['advanced']['ipv4']['rule'] -%}
+{%- for rule, rule_opts in csf['firewall']['advanced']['ipv4']['rule']|dictsort %}
 ## Rule ID: rule
 ## Description: {{ rule_opts['desc'] }}
 {% for ipt_rule in rule_opts['custom'] %}
 /sbin/iptables {{ ipt_rule }}
 {%- endfor -%}
 {%- endfor -%}
-{%- for rule, rule_opts in csf['firewall']['advanced']['ipv6'].iter() %}
+{%- if csf['firewall']['advanced']['ipv6'] and csf['firewall']['advanced']['ipv6']['rule'] is defined and csf['firewall']['advanced']['ipv6']['rule']-%}
+{%- for rule, rule_opts in csf['firewall']['advanced']['ipv6']['rule']|dictsort %}
 ## Rule ID: rule
 ## Description: {{ rule_opts['desc'] }}
 {% for ipt_rule in rule_opts['custom'] %}
 /sbin/iptables {{ ipt_rule }}
 {%- endfor -%}
 {%- endfor -%}
+{%- endif -%}
 {%- endif -%}
 {%- endif %}

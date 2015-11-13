@@ -48,35 +48,12 @@ csf:
           in: []
           out:
             - "0:65535"
-      rule:
-        2:
-          action: accept
-          desc: "SIP Access"
-          port:
-            type: destination
-            number: 
-              - 5060
-              - 5061
-          address:
-            type: destination
-            ip:
-              - 107.172.18.205
-              - 127.0.0.1
-          direction: in
-          protocol: udp
-        1:
-          action: accept
-          desc: "hi"
-          subnet:
-            - 10.0.0.0/8
+      rule: {}
     advanced:
       ipv4:
-        rule:
-          100:
-            desc: "TEST"
-            custom:
-              - "-A INPUT"
-      ipv6: {}        
+        rule: {}
+      ipv6:
+        rule: {}        
   flood:
     syn:
       protection: False
