@@ -40,8 +40,6 @@ Fedora might be supported, though I haven't bothered to test due to it's fast re
 ## Possible Settings
 See the [Wiki](https://github.com/ALinuxNinja/salt-csf/wiki/CSF-Pillar-Functions) for how the pillar is set. For missing functions, see defaults.yaml
 
-For descriptions of what each of the settings on the pillar do, see the wiki.
-
 ## Donations
 I do a lot of work to keep things working and to implement new features. If you find this useful, please consider a donation via the Bitcoin address below.
 
