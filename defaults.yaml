@@ -53,16 +53,4 @@ csf:
       ipv4:
         rule: {}
       ipv6:
-        rule: {}        
-  flood:
-    syn:
-      protection: False
-      rate: "100/s"
-      burst: "150"
-    connection: {}
-    port: {}
-    udp: {}
-  lfd:
-    enable: True
-    monitor_csf: True
-    reverse_dns: True
+        rule: {}
