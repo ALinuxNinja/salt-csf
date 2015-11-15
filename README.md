@@ -40,6 +40,9 @@ Fedora might be supported, though I haven't bothered to test due to it's fast re
 ## Possible Settings
 See the [Wiki](https://github.com/ALinuxNinja/salt-csf/wiki/CSF-Pillar-Functions) for how the pillar is set. For missing functions, see defaults.yaml
 
+## Important!
+Setting up base ipv4/ipv6 rules in csf['common'] before running SLS is **highly encouraged**. The default configuration does _not_ allow **any** connections in or out.
+
 ## Donations
 I do a lot of work to keep things working and to implement new features. If you find this useful, please consider a donation via the Bitcoin address below.
 

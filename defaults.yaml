@@ -28,26 +28,21 @@ csf:
             rate-limit: 0
         spi: True
         tcp:
-          in: 
-            - "22"
-          out:
-            - "0:65535"
+          in: []
+          out: []
         udp:
           in: []
-          out:
-            - "0:65535"
+          out: []
       ipv6:
         enabled: True
         strict: False
         spi: True
         tcp:
           in: []
-          out:
-            - "0:65535"
+          out: []
         udp:
           in: []
-          out:
-            - "0:65535"
+          out: []
       rule: {}
     advanced:
       ipv4:
