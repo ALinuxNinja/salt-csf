@@ -54,3 +54,5 @@ csf:
         rule: {}
       ipv6:
         rule: {}
+  lfd:
+    enable: True
