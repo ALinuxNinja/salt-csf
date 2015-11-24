@@ -1,0 +1,104 @@
+csf:
+  common:
+    enable: True # Enable CSF
+    testing:
+      enabled: False
+      interval: 5
+    syslog:
+      restrict: 0
+      group: "mysyslog"
+    ui: 2
+    autoupdate: True
+    firewall:
+      conntrack: False
+      faststart: True
+      drop_invalid: True
+      interface:
+        filter_on:
+          ipv4_interface: ""
+          ipv6_interface: ""
+        skip: []
+      base:
+        ipv4:
+          icmp:
+            in:
+              allowed: True
+              rate-limit: 0
+            out:
+              allowed: True
+              rate-limit: 0
+          spi: True
+          tcp:
+            in:
+              - "22"
+              - "53"
+            out:
+              - "0:65535"
+          udp:
+            in:
+              - "53"
+            out:
+              - "0:65535"
+        ipv6:
+          enabled: True
+          strict: False
+          spi: True
+          tcp:
+            in:
+              - "22"
+              - "53"
+            out:
+              - "0:65535"
+          udp:
+            in:
+              - "53"
+            out:
+              - "0:65535"
+        rule:
+          2:
+            action: accept
+            desc: "SIP Access"
+            port:
+              type: destination
+              number:
+                - 5060
+                - 5061
+            address:
+              type: destination
+              ip:
+                - 107.222.222.222
+                - 127.0.0.1
+            direction: in
+            protocol: udp
+        rule:
+          1:
+            action: deny
+            desc: "Bad Subnet"
+            subnet:
+              - "10.0.0.0/8"
+        rule:
+          3:
+            action: ignore
+            desc: "Internal Subnet SSH"
+            port:
+              type: destination
+              number:
+                - 22
+              address:
+                type: source
+                ip:
+                  - "192.168.44.0/24"
+      advanced:
+        ipv4:
+          rule:
+            1:
+              desc: "Custom IPTables Rule"
+              custom:
+                - "-A INPUT -p tcp --dport ssh -j ACCEPT"
+        ipv6:
+          rule: {}
+    lfd:
+      enable: True
+  minion1:
+    enable: False # Disable CSF
+    
