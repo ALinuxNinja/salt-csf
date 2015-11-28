@@ -73,7 +73,7 @@ csf_config:
 {% elif csf['testing']['enabled'] == True %} %}
       - set TESTING '"1"'
 {% endif %}
-      - set TESTING_INTERVAL {{ csf['testing']['interval'] }}
+      - set TESTING_INTERVAL '"{{ csf['testing']['interval'] }}'"
       - set RESTRICT_SYSLOG '"{{ csf['syslog']['restrict'] }}"'
       - set RESTRICT_SYSLOG_GROUP '"{{ csf['syslog']['group'] }}"'
 {% if csf['autoupdate'] == False %}
