@@ -1,7 +1,10 @@
 #!/bin/bash
-####################################################
-## csfpost.sh                                     ##
-## Part of CSF Firewall                           ##
-## File is managed by Salt, do not manually edit. ##
-## SLS for CSF Firewall created by ALinuxNinja    ##
-####################################################
+############################################################# 
+## csfpost.sh                                              ##
+## CSF Firewall (http://configserver.com/cp/csf.html)      ##
+#############################################################
+## Configuration managed by SaltStack, do NOT manually edit #
+#############################################################
+## SLS: csf (https://github.com/ALinuxNinja/salt-csf)      ##
+## Author: ALinuxNinja (https://github.com/ALinuxNinja)    ##
+#############################################################

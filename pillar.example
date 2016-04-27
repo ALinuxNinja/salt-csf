@@ -1,14 +1,24 @@
 csf:
   common:
-    enable: True # Enable CSF
+    ## Enable/Disable CSF
+    enable: True
+    ## CSF Testing Mode Configuration
     testing:
+      ## Enable/Disable CSF Testing Mode
       enabled: False
+      ## How long the settings should be applied for (CSF Testing Mode)
       interval: 5
+    ## Syslog Configuration
     syslog:
+      ## Syslog restriction mode
       restrict: 0
+      ## Group that should be allowed to write to syslog
       group: "mysyslog"
+    ## CSF Web Interface Configuration
     ui: 2
+    ## Auto Update Enable/Disable
     autoupdate: True
+    ## Firewall Configuration
     firewall:
       conntrack: False
       faststart: True
