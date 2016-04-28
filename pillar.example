@@ -28,28 +28,69 @@ csf:
           ipv4_interface: ""
           ipv6_interface: ""
         skip: []
-      base:
-        ipv4:
-          icmp:
-            in:
-              allowed: True
-              rate-limit: 0
-            out:
-              allowed: True
-              rate-limit: 0
-          spi: True
-          tcp:
-            in:
-              - "22"
-              - "53"
-            out:
-              - "0:65535"
-          udp:
-            in:
-              - "53"
-            out:
-              - "0:65535"
-        ipv6:
+      dnat:
+        100:
+          protocol: tcp
+          original:
+            ip: 192.168.2.2
+            port: "*"
+          new:
+            ip: 192.168.3.1
+            port: "*"
+      ipv4:
+        icmp:
+          in:
+            allowed: True
+            rate-limit: 0
+          out:
+            allowed: True
+            rate-limit: 0
+        spi: True
+        tcp:
+          in:
+            - "22"
+            - "53"
+          out:
+            - "0:65535"
+        udp:
+          in:
+            - "53"
+          out:
+            - "0:65535"
+        rule:
+          100:
+            description: "Test Rule"
+            type: standard
+            direction: input
+            action: accept
+            protocol: tcp
+            interface:
+              incoming: eth0
+              outgoing: eth1
+            destination:
+              networks:
+                - 192.168.1.1
+              ports:
+                - 80
+            source:
+              networks:
+                - 192.168.2.2
+            state:
+              - ESTABLISHED
+              - RELATED
+          101:
+            type: whitelist
+            network:
+              - 192.168.2.2/32
+          102:
+            type: blacklist
+            network:
+              - 192.168.3.0/24
+          103:
+            type: custom
+            rules:
+              - ""
+       ipv6:
           enabled: True
           strict: False
           spi: True
@@ -64,51 +105,8 @@ csf:
               - "53"
             out:
               - "0:65535"
-        rule:
-          2:
-            action: accept
-            desc: "SIP Access"
-            port:
-              type: destination
-              number:
-                - 5060
-                - 5061
-            address:
-              type: destination
-              ip:
-                - 107.222.222.222
-                - 127.0.0.1
-            direction: in
-            protocol: udp
-        rule:
-          1:
-            action: deny
-            desc: "Bad Subnet"
-            subnet:
-              - "10.0.0.0/8"
-        rule:
-          3:
-            action: ignore
-            desc: "Internal Subnet SSH"
-            port:
-              type: destination
-              number:
-                - 22
-              address:
-                type: source
-                ip:
-                  - "192.168.44.0/24"
-      advanced:
-        ipv4:
-          rule:
-            1:
-              desc: "Custom IPTables Rule"
-              custom:
-                - "-A INPUT -p tcp --dport ssh -j ACCEPT"
-        ipv6:
           rule: {}
     lfd:
       enable: True
   minion1:
     enable: False # Disable CSF
-    

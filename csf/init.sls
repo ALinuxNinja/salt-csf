@@ -15,9 +15,6 @@ csf:
     - enable: True
     - watch:
       - augeas: csf_config
-      - file: /etc/csf/csf.allow
-      - file: /etc/csf/csf.deny
-      - file: /etc/csf/csf.ignore
       - file: /etc/csf/csfpre.sh
       - file: /etc/csf/csfpost.sh
 {% else %}
@@ -32,36 +29,6 @@ lfd:
   service.dead:
     - enable: False
 {% endif %}
-csf_ignore:
-  file.managed:
-    - source: salt://csf/config/csf.ignore
-    - name: /etc/csf/csf.ignore
-    - user: root
-    - group: root
-    - mode: 664
-    - template: jinja
-    - context:
-      csf: {{ csf }}
-csf_allow:
-  file.managed:
-    - source: salt://csf/config/csf.allow
-    - name: /etc/csf/csf.allow
-    - user: root
-    - group: root
-    - mode: 664
-    - template: jinja
-    - context:
-      csf: {{ csf }}
-csf_deny:
-  file.managed:
-    - source: salt://csf/config/csf.deny
-    - name: /etc/csf/csf.deny
-    - user: root
-    - group: root
-    - mode: 664
-    - template: jinja
-    - context:
-      csf: {{ csf }}
 {# CSF Option Configuration #}
 csf_config:
   augeas.change:
@@ -108,26 +75,26 @@ csf_config:
 {%- endif -%}
 {%- endfor -%}
 {%- endif -%}"'
-{% if csf['firewall']['base']['ipv4']['icmp']['in']['allowed'] == False %}
+{% if csf['firewall']['ipv4']['icmp']['in']['allowed'] == False %}
       - set ICMP_IN '"0"'
-{% elif csf['firewall']['base']['ipv4']['icmp']['in']['allowed'] == True %}
+{% elif csf['firewall']['ipv4']['icmp']['in']['allowed'] == True %}
       - set ICMP_IN '"1"'
 {% endif %}
-      - set ICMP_IN_RATE '"{{ csf['firewall']['base']['ipv4']['icmp']['in']['rate-limit'] }}"'
-{% if csf['firewall']['base']['ipv4']['icmp']['out']['allowed'] == False %}
+      - set ICMP_IN_RATE '"{{ csf['firewall']['ipv4']['icmp']['in']['rate-limit'] }}"'
+{% if csf['firewall']['ipv4']['icmp']['out']['allowed'] == False %}
       - set ICMP_OUT '"0"'
-{% elif csf['firewall']['base']['ipv4']['icmp']['out']['allowed'] == True %}
+{% elif csf['firewall']['ipv4']['icmp']['out']['allowed'] == True %}
       - set ICMP_OUT '"1"'
 {% endif %}
-      - set ICMP_OUT_RATE '"{{ csf['firewall']['base']['ipv4']['icmp']['out']['rate-limit'] }}"'
-{% if csf['firewall']['base']['ipv4']['spi'] == True %}
+      - set ICMP_OUT_RATE '"{{ csf['firewall']['ipv4']['icmp']['out']['rate-limit'] }}"'
+{% if csf['firewall']['ipv4']['spi'] == True %}
       - set LF_SPI '"1"'
-{% elif csf['firewall']['base']['ipv4']['spi'] == False %}
+{% elif csf['firewall']['ipv4']['spi'] == False %}
       - set LF_SPI '"0"'
 {% endif %}
       - set TCP_IN '"
-{%- if csf['firewall']['base']['ipv4']['tcp']['in'] -%}
-{%- for port in csf['firewall']['base']['ipv4']['tcp']['in'] -%}
+{%- if csf['firewall']['ipv4']['tcp']['in'] -%}
+{%- for port in csf['firewall']['ipv4']['tcp']['in'] -%}
 {%- if not loop.last -%}
 {{ port }},
 {%- else -%}
@@ -136,8 +103,8 @@ csf_config:
 {%- endfor -%}
 {%- endif -%}"'
       - set TCP_OUT '"
-{%- if csf['firewall']['base']['ipv4']['tcp']['out'] -%}
-{%- for port in csf['firewall']['base']['ipv4']['tcp']['out'] -%}
+{%- if csf['firewall']['ipv4']['tcp']['out'] -%}
+{%- for port in csf['firewall']['ipv4']['tcp']['out'] -%}
 {%- if not loop.last -%}
 {{ port }},
 {%- else -%}
@@ -146,8 +113,8 @@ csf_config:
 {%- endfor -%}
 {%- endif -%}"'
       - set UDP_IN '"
-{%- if csf['firewall']['base']['ipv4']['udp']['in'] -%}
-{%- for port in csf['firewall']['base']['ipv4']['udp']['in'] -%}
+{%- if csf['firewall']['ipv4']['udp']['in'] -%}
+{%- for port in csf['firewall']['ipv4']['udp']['in'] -%}
 {%- if not loop.last -%}
 {{ port }},
 {%- else -%}
@@ -156,8 +123,8 @@ csf_config:
 {%- endfor -%}
 {%- endif -%}"'
       - set UDP_OUT '"
-{%- if csf['firewall']['base']['ipv4']['udp']['out'] -%}
-{%- for port in csf['firewall']['base']['ipv4']['udp']['out'] -%}
+{%- if csf['firewall']['ipv4']['udp']['out'] -%}
+{%- for port in csf['firewall']['ipv4']['udp']['out'] -%}
 {%- if not loop.last -%}
 {{ port }},
 {%- else -%}
@@ -165,24 +132,24 @@ csf_config:
 {%- endif -%}
 {%- endfor -%}
 {%- endif -%}"'
-{% if csf['firewall']['base']['ipv6']['enabled'] == True %}
+{% if csf['firewall']['ipv6']['enabled'] == True %}
       - set IPV6 '"1"'
-{% elif csf['firewall']['base']['ipv6']['enabled'] == False %}
+{% elif csf['firewall']['ipv6']['enabled'] == False %}
       - set IPV6 '"0"'
 {% endif %}
-{% if csf['firewall']['base']['ipv6']['strict'] == True %}
+{% if csf['firewall']['ipv6']['strict'] == True %}
       - set IPV6_ICMP_STRICT '"1"'
-{% elif csf['firewall']['base']['ipv6']['strict'] == False %}
+{% elif csf['firewall']['ipv6']['strict'] == False %}
       - set IPV6_ICMP_STRICT '"0"'
 {% endif %}
-{% if csf['firewall']['base']['ipv6']['spi'] == True %}
+{% if csf['firewall']['ipv6']['spi'] == True %}
       - set IPV6_SPI '"1"'
-{% elif csf['firewall']['base']['ipv6']['spi'] == False %}
+{% elif csf['firewall']['ipv6']['spi'] == False %}
       - set IPV6_SPI '"0"'
 {% endif %}
       - set TCP6_IN '"
-{%- if csf['firewall']['base']['ipv6']['tcp']['in'] -%}
-{%- for port in csf['firewall']['base']['ipv6']['tcp']['in'] -%}
+{%- if csf['firewall']['ipv6']['tcp']['in'] -%}
+{%- for port in csf['firewall']['ipv6']['tcp']['in'] -%}
 {%- if not loop.last -%}
 {{ port }},
 {%- else -%}
@@ -191,8 +158,8 @@ csf_config:
 {%- endfor -%}
 {%- endif -%}"'
       - set TCP6_OUT '"
-{%- if csf['firewall']['base']['ipv6']['tcp']['out'] -%}
-{%- for port in csf['firewall']['base']['ipv6']['tcp']['out'] -%}
+{%- if csf['firewall']['ipv6']['tcp']['out'] -%}
+{%- for port in csf['firewall']['ipv6']['tcp']['out'] -%}
 {%- if not loop.last -%}
 {{ port }},
 {%- else -%}
@@ -201,8 +168,8 @@ csf_config:
 {%- endfor -%}
 {%- endif -%}"'
       - set UDP6_IN '"
-{%- if csf['firewall']['base']['ipv6']['udp']['in'] -%}
-{%- for port in csf['firewall']['base']['ipv6']['udp']['in'] -%}
+{%- if csf['firewall']['ipv6']['udp']['in'] -%}
+{%- for port in csf['firewall']['ipv6']['udp']['in'] -%}
 {%- if not loop.last -%}
 {{ port }},
 {%- else -%}
@@ -211,8 +178,8 @@ csf_config:
 {%- endfor -%}
 {%- endif -%}"'
       - set UDP6_OUT '"
-{%- if csf['firewall']['base']['ipv6']['udp']['out'] -%}
-{%- for port in csf['firewall']['base']['ipv6']['udp']['out'] -%}
+{%- if csf['firewall']['ipv6']['udp']['out'] -%}
+{%- for port in csf['firewall']['ipv6']['udp']['out'] -%}
 {%- if not loop.last -%}
 {{ port }},
 {%- else -%}
