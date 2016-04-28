@@ -10,12 +10,19 @@
 ##############################################################
 
 {%- if csf['firewall'] is defined -%}
-{%- if csf['firewall']['ipv4'] is defined and csf['firewall']['ipv4']['rule'] is defined -%}
-{%- for rule, rule_opts in csf['firewall']['ipv4']['rule']|dictsort %}
+{%- if csf['firewall']['rule'] is defined -%}
+{%- for rule, rule_opts in csf['firewall']['rule']|dictsort %}
+{%- if rule_opts['ip_version'] == 'ipv4' -%}
+{%- set iptables_cmd = "/sbin/iptables" -%}
+{%- elif rule_opts['ip_version'] == 'ipv6' -%}
+{%- set iptables_cmd = "/sbin/ip6tables" -%}
+{%- else -%}
+{%- set iptables_cmd = "/sbin/iptables" -%}
+{%- endif -%}
 ## Rule ID: {{ rule }}
 ## Description: {{ rule_opts['description'] }}
 {% if rule_opts['type'] == 'standard' %}
-/sbin/iptables -A {{ rule_opts['direction']|upper }}
+{{ iptables_cmd }} -A {{ rule_opts['direction']|upper }}
 {%- if rule_opts['protocol'] is defined -%}
 {{ " -p "+rule_opts['protocol'] }}
 {%- endif -%}
@@ -84,24 +91,17 @@
 -j {{ rule_opts['action']|upper }}
 {% elif rule_opts['type'] == 'custom' %}
 {%- for rule in rule_opts['rules'] -%}
-/sbin/iptables {{ rule }}
+{{ iptables_cmd }} {{ rule }}
 {% endfor -%}
 {% elif rule_opts['type'] == 'whitelist' %}
 {%- for network in rule_opts['network'] -%}
-/sbin/iptables -s {{ network }} -j ACCEPT
+{{ iptables_cmd }} -s {{ network }} -j ACCEPT
 {% endfor -%}
 {% elif rule_opts['type'] == 'blacklist' %}
 {%- for network in rule_opts['network'] -%}
-/sbin/iptables -s {{ network }} -j DROP
+{{ iptables_cmd }} -s {{ network }} -j DROP
 {% endfor -%}
 {% endif -%}
-{% endfor -%}
-{%- endif -%}
-{%- if csf['firewall']['ipv6'] is defined and csf['firewall']['ipv4']['rule'] is defined -%}
-{%- for rule, rule_opts in csf['firewall']['ipv6']['rule']|dictsort %}
-## Rule ID: {{ rule }}
-## Description: {{ rule_opts['description'] }}
-
 {% endfor -%}
 {%- endif -%}
 {%- endif %}

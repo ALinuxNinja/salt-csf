@@ -33,7 +33,6 @@ csf:
       udp:
         in: []
         out: []
-      rule: {}
     ipv6:
       enabled: True
       strict: False
@@ -44,6 +43,6 @@ csf:
       udp:
         in: []
         out: []
-      rule: {}
+  rule: {}
   lfd:
     enable: True

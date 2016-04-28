@@ -57,55 +57,58 @@ csf:
             - "53"
           out:
             - "0:65535"
-        rule:
-          100:
-            description: "Test Rule"
-            type: standard
-            direction: input
-            action: accept
-            protocol: tcp
-            interface:
-              incoming: eth0
-              outgoing: eth1
-            destination:
-              networks:
-                - 192.168.1.1
-              ports:
-                - 80
-            source:
-              networks:
-                - 192.168.2.2
-            state:
-              - ESTABLISHED
-              - RELATED
-          101:
-            type: whitelist
-            network:
-              - 192.168.2.2/32
-          102:
-            type: blacklist
-            network:
-              - 192.168.3.0/24
-          103:
-            type: custom
-            rules:
-              - ""
-       ipv6:
-          enabled: True
-          strict: False
-          spi: True
-          tcp:
-            in:
-              - "22"
-              - "53"
-            out:
-              - "0:65535"
-          udp:
-            in:
-              - "53"
-            out:
-              - "0:65535"
-          rule: {}
+      ipv6:
+        enabled: True
+        strict: False
+        spi: True
+        tcp:
+          in:
+            - "22"
+            - "53"
+          out:
+            - "0:65535"
+        udp:
+          in:
+            - "53"
+          out:
+            - "0:65535"
+      rule:
+        100:
+          description: "Test Rule"
+          ip_version: ipv4
+          type: standard
+          direction: input
+          action: accept
+          protocol: tcp
+          interface:
+            incoming: eth0
+            outgoing: eth1
+          destination:
+            networks:
+              - 192.168.1.1
+            ports:
+              - 80
+          source:
+            networks:
+              - 192.168.2.2
+          state:
+            - ESTABLISHED
+            - RELATED
+        101:
+          type: whitelist
+          ip_version: ipv4
+          network:
+            - 192.168.2.2/32
+        102:
+          type: blacklist
+          ip_version: ipv4
+          network:
+            - 192.168.3.0/24
+        103:
+          type: custom
+          ip_version: ipv6
+          rules:
+            - ""
     lfd:
       enable: True
   minion1:
