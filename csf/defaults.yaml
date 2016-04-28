@@ -1,6 +1,6 @@
 csf:
   enable: True
-  testing: 
+  testing:
     enabled: False
     interval: 5
   syslog:
@@ -17,37 +17,33 @@ csf:
         ipv4_interface: ""
         ipv6_interface: ""
       skip: []
-    base:
-      ipv4:
-        icmp:
-          in: 
-            allowed: True
-            rate-limit: 0
-          out:
-            allowed: True
-            rate-limit: 0
-        spi: True
-        tcp:
-          in: []
-          out: []
-        udp:
-          in: []
-          out: []
-      ipv6:
-        enabled: True
-        strict: False
-        spi: True
-        tcp:
-          in: []
-          out: []
-        udp:
-          in: []
-          out: []
+    dnat: {}
+    ipv4:
+      icmp:
+        in:
+          allowed: True
+          rate-limit: 0
+        out:
+          allowed: True
+          rate-limit: 0
+      spi: True
+      tcp:
+        in: []
+        out: []
+      udp:
+        in: []
+        out: []
       rule: {}
-    advanced:
-      ipv4:
-        rule: {}
-      ipv6:
-        rule: {}
+    ipv6:
+      enabled: True
+      strict: False
+      spi: True
+      tcp:
+        in: []
+        out: []
+      udp:
+        in: []
+        out: []
+      rule: {}
   lfd:
     enable: True
