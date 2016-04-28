@@ -92,7 +92,7 @@
 {% endif %}
 {%- endfor -%}
 {%- endif -%}
--j {{ rule_opts['action']|upper }}
+{{ " -j "+rule_opts['action']|upper }}
 {% elif rule_opts['type'] == 'custom' %}
 {%- for rule in rule_opts['rules'] -%}
 {{ iptables_cmd }} {{ rule }}
