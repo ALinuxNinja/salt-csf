@@ -12,10 +12,14 @@
 {%- if csf['firewall'] is defined -%}
 {%- if csf['firewall']['rule'] is defined -%}
 {%- for rule, rule_opts in csf['firewall']['rule']|dictsort %}
-{%- if rule_opts['ip_version'] == 'ipv4' -%}
+{%- if rule_opts['ip_version'] is defined -%}
+{%- if rule_opts['ip_version'] == "ipv4" -%}
 {%- set iptables_cmd = "/sbin/iptables" -%}
 {%- elif rule_opts['ip_version'] == 'ipv6' -%}
 {%- set iptables_cmd = "/sbin/ip6tables" -%}
+{%- else -%}
+{%- set iptables_cmd = "/sbin/iptables" -%}
+{%- endif -%}
 {%- else -%}
 {%- set iptables_cmd = "/sbin/iptables" -%}
 {%- endif -%}
