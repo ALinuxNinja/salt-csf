@@ -72,7 +72,7 @@
 {%- endif -%}
 {%- endif -%}
 {%- if rule_opts['state'] is defined -%}
-{{ " -m state --state "}
+{{ " -m state --state " }}
 {%- for state in rule_opts['state'] -%}
 {%- if not loop.last -%}
 {{ state }},
