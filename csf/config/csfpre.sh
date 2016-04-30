@@ -8,7 +8,6 @@
 ## SLS: csf (https://github.com/ALinuxNinja/salt-csf)       ##
 ## Author: ALinuxNinja (https://github.com/ALinuxNinja)     ##
 ##############################################################
-
 {%- if csf['firewall'] is defined -%}
 {%- if csf['firewall']['rule'] is defined -%}
 {%- for rule, rule_opts in csf['firewall']['rule']|dictsort %}
@@ -25,7 +24,7 @@
 {%- endif -%}
 ## Rule ID: {{ rule }}
 ## Description: {{ rule_opts['description'] }}
-{% if rule_opts['type'] == 'standard' %}
+{% if rule_opts['type'] == 'standard' -%}
 {{ iptables_cmd }} -A {{ rule_opts['direction']|upper }}
 {%- if rule_opts['protocol'] is defined -%}
 {{ " -p "+rule_opts['protocol'] }}
@@ -93,15 +92,15 @@
 {%- endfor -%}
 {%- endif -%}
 {{ " -j "+rule_opts['action']|upper }}
-{% elif rule_opts['type'] == 'custom' %}
+{% elif rule_opts['type'] == 'custom' -%}
 {%- for rule in rule_opts['rules'] -%}
 {{ iptables_cmd }} {{ rule }}
 {% endfor -%}
-{% elif rule_opts['type'] == 'whitelist' %}
+{% elif rule_opts['type'] == 'whitelist' -%}
 {%- for network in rule_opts['network'] -%}
 {{ iptables_cmd }} -s {{ network }} -j ACCEPT
 {% endfor -%}
-{% elif rule_opts['type'] == 'blacklist' %}
+{% elif rule_opts['type'] == 'blacklist' -%}
 {%- for network in rule_opts['network'] -%}
 {{ iptables_cmd }} -s {{ network }} -j DROP
 {% endfor -%}
