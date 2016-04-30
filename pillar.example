@@ -30,6 +30,7 @@ csf:
         skip: []
       dnat:
         100:
+          description: "Map IP"
           protocol: tcp
           original:
             ip: 192.168.2.2
@@ -37,6 +38,15 @@ csf:
           new:
             ip: 192.168.3.1
             port: "*"
+        101:
+        description: "Map HTTP"
+        protocol: tcp
+        original:
+          ip: 192.168.2.3
+          port: "80"
+        new:
+          ip: 192.168.3.2
+          port: "80"      
       ipv4:
         icmp:
           in:

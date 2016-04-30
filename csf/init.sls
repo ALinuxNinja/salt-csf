@@ -187,7 +187,8 @@ csf_config:
 {%- endif -%}
 {%- endfor -%}
 {%- endif -%}"'
-#Blank CSFPRE to allow for watch
+
+{# Additional Firewall Rules #}
 csf_csfpre:
   file.managed:
     - source: salt://csf/config/csfpre.sh
@@ -202,6 +203,16 @@ csf_csfpost:
   file.managed:
     - source: salt://csf/config/csfpost.sh
     - name: /etc/csf/csfpost.sh
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - context:
+      csf: {{ csf }}
+csf_csfredirect:
+  file.managed:
+    - source: salt://csf/config/csf.redirect
+    - name: /etc/csf/csf.redirect
     - user: root
     - group: root
     - mode: 644
