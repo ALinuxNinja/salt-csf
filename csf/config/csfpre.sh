@@ -8,7 +8,7 @@
 ## SLS: csf (https://github.com/ALinuxNinja/salt-csf)       ##
 ## Author: ALinuxNinja (https://github.com/ALinuxNinja)     ##
 ##############################################################
-{%- if csf['firewall'] is defined -%}
+{% if csf['firewall'] is defined -%}
 {%- if csf['firewall']['rule'] is defined -%}
 {%- for rule, rule_opts in csf['firewall']['rule']|dictsort %}
 {%- if rule_opts['ip_version'] is defined -%}
