@@ -13,7 +13,7 @@
 {%- for rule, rule_opts in csf['firewall']['dnat']|dictsort %}
 ## Rule ID: {{ rule }}
 ## Description: {{ rule_opts['description'] }}
-{{ rule_opts['original']['ip'] }}|{{ rule_opts['original']['port'] }}|{{ rule_opts['new']['ip'] }}{{ rule_opts['new']['port'] }}|{{ rule_opts['protocol'] }}
+{{ rule_opts['original']['ip'] }}|{{ rule_opts['original']['port'] }}|{{ rule_opts['new']['ip'] }}|{{ rule_opts['new']['port'] }}|{{ rule_opts['protocol'] }}
 {% endfor -%}
 {%- endif -%}
 {%- endif %}
