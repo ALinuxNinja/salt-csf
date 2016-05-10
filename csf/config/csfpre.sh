@@ -98,11 +98,15 @@
 {% endfor -%}
 {% elif rule_opts['type'] == 'whitelist' -%}
 {%- for network in rule_opts['network'] -%}
-{{ iptables_cmd }} -s {{ network }} -j ACCEPT
+{{ iptables_cmd }} -A INPUT -s {{ network }} -j ACCEPT
+{{ iptables_cmd }} -A OUTPUT -d {{ network }} -j ACCEPT
+{{ iptables_cmd }} -A FORWARD -s {{ network }} -j ACCEPT
 {% endfor -%}
 {% elif rule_opts['type'] == 'blacklist' -%}
 {%- for network in rule_opts['network'] -%}
-{{ iptables_cmd }} -s {{ network }} -j DROP
+{{ iptables_cmd }} -A INPUT -s {{ network }} -j DROP
+{{ iptables_cmd }} -A OUTPUT -d {{ network }} -j DROP
+{{ iptables_cmd }} -A FORWARD -s {{ network }} -j DROP
 {% endfor -%}
 {% endif -%}
 {% endfor -%}
