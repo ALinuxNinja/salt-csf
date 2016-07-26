@@ -1,0 +1,12 @@
+###############################################################################
+# Managed by Salt, do not manually edit. Your changes will be lost.
+# SLS: csf
+# Author: ALinuxNinja
+# URL: https://github.com/ALinuxNinja/salt-csf
+###############################################################################
+# Copyright 2006-2016, Way to the Web Limited
+# URL: http://www.configserver.com
+# Email: sales@waytotheweb.com
+###############################################################################
+# The following is a list of regular expressions for the LOGSCANNER feature.
+# If a log line matches it will be ignored, otherwise it will be reported

@@ -1,125 +1,21 @@
 csf:
-  common:
-    ## Enable/Disable CSF
-    enable: True
-    ## CSF Testing Mode Configuration
-    testing:
-      ## Enable/Disable CSF Testing Mode
-      enabled: False
-      ## How long the settings should be applied for (CSF Testing Mode)
-      interval: 5
-    ## Syslog Configuration
-    syslog:
-      ## Syslog restriction mode
-      restrict: 0
-      ## Group that should be allowed to write to syslog
-      group: "mysyslog"
-    ## CSF Web Interface Configuration
-    ui: 2
-    ## Auto Update Enable/Disable
-    autoupdate: True
-    ## Firewall Configuration
-    firewall:
-      conntrack: False
-      faststart: True
-      drop_invalid: True
-      interface:
-        filter_on:
-          ipv4_interface: ""
-          ipv6_interface: ""
-        skip: []
-      dnat:
-        100:
-          description: "Map IP"
-          protocol: tcp
-          original:
-            ip: 192.168.2.2
-            port: "*"
-          new:
-            ip: 192.168.3.1
-            port: "*"
-        101:
-        description: "Map HTTP"
-        protocol: tcp
-        original:
-          ip: 192.168.2.3
-          port: "80"
-        new:
-          ip: 192.168.3.2
-          port: "80"      
-      ipv4:
-        icmp:
-          in:
-            allowed: True
-            rate-limit: 0
-          out:
-            allowed: True
-            rate-limit: 0
-        spi: True
-        tcp:
-          in:
-            - "22"
-            - "53"
-          out:
-            - "0:65535"
-        udp:
-          in:
-            - "53"
-          out:
-            - "0:65535"
-      ipv6:
-        enabled: True
-        strict: False
-        spi: True
-        tcp:
-          in:
-            - "22"
-            - "53"
-          out:
-            - "0:65535"
-        udp:
-          in:
-            - "53"
-          out:
-            - "0:65535"
-      rule:
-        100:
-          description: "Test Rule"
-          ip_version: ipv4
-          type: standard
-          direction: input
-          action: accept
-          protocol: tcp
-          interface:
-            incoming: eth0
-            outgoing: eth1
-          destination:
-            networks:
-              - 192.168.1.1
-            ports:
-              - 80
-          source:
-            networks:
-              - 192.168.2.2
-          state:
-            - ESTABLISHED
-            - RELATED
-        101:
-          type: whitelist
-          ip_version: ipv4
-          network:
-            - 192.168.2.2/32
-        102:
-          type: blacklist
-          ip_version: ipv4
-          network:
-            - 192.168.3.0/24
-        103:
-          type: custom
-          ip_version: ipv6
+  hosts:
+    common: {}
+    host1:
+      conf: {}
+      allow: {}
+      deny: {}
+      dirwatch: {}
+      redirect: {}
+      blocklists: {}
+      rules:
+        pre:
+          groups:
+            - NGINX
           rules:
-            - ""
-    lfd:
-      enable: True
-  minion1:
-    enable: False # Disable CSF
+            - /sbin/iptables...
+        post:
+  rules:
+    NGINX:
+      - /sbin/iptables
+      - 

@@ -1,0 +1,14 @@
+###############################################################################
+# Managed by Salt, do not manually edit. Your changes will be lost.
+# SLS: csf
+# Author: ALinuxNinja
+# URL: https://github.com/ALinuxNinja/salt-csf
+###############################################################################
+# Copyright 2006-2016, Way to the Web Limited
+# URL: http://www.configserver.com
+# Email: sales@waytotheweb.com
+###############################################################################
+# The following is a list of user ID's (UID) that are ignored by the User ID
+# Tracking feature - UID_INTERVAL
+#
+# For example, to ignore all root connections add 0 on a line by itself
