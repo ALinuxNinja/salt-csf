@@ -9,3 +9,6 @@
 # Email: sales@waytotheweb.com
 ###############################################################################
 # The following is a list of log files for the LOGSCANNER feature
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

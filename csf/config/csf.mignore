@@ -12,3 +12,6 @@
 # RT_LOCALRELAY_ALERT will ignore
 #
 # Add only one username per line
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

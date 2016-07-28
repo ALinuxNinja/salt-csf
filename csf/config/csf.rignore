@@ -43,3 +43,6 @@
 # Note: If the DNS lookups are too slow or do not return the expected results
 # the IP address will be counted towards the blocking trigger as normal
 #
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

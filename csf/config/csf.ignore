@@ -13,3 +13,6 @@
 # CIDR addressing allowed with a quaded IP (e.g. 192.168.254.0/24)
 # Only list IP addresses, not domain names (they will be ignored)
 #
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

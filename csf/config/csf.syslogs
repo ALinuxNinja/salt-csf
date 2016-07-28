@@ -12,3 +12,6 @@
 # features. IF they exists they will apear in the drop-down lists
 #
 # File globbing is supported for logs listed below
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

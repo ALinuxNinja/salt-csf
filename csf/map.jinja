@@ -15,22 +15,14 @@
 {# Merge in defaults to OS settings #}
 {% do defaults.csf.update(os_settings) %}
 
-{% if pillar['csf'] is defined %}
 {# Merge in common settings to pillar #}
-{% if pillar['csf']['common'] is defined %}
-{% set pillar_common = salt['pillar.get']('csf:common',default=defaults.csf,merge=True) %}
-{% else %}
-{% set pillar_common = salt['pillar.get']('',default=defaults.csf,merge=True) %}
-{% endif %}
+{% set pillar_common = salt['pillar.get']('csf:host:common',default=defaults.csf,merge=True) %}
 
 {# Merge in minion specific settings to pillar #}
-{% if pillar['csf'][grains['id']] is defined %}
-{% set pillar_minion = salt['pillar.get']('csf:'~grains['id'],default=pillar_common,merge=True) %}
+{% if pillar['csf'] is defined and pillar['csf']['host'] is defined and pillar['csf']['host'][grains['id']] is defined  and pillar['csf']['host'][grains['id']]['config'] is defined %}
+{% set pillar_minion = salt['pillar.get']('csf:host:'~grains['id'],default=pillar_common,merge=True) %}
 {% else %}
 {% set pillar_minion = salt['pillar.get']('',default=pillar_common,merge=True) %}
-{% endif %}
-{% else %}
-{% set pillar_minion = salt['pillar.get']('',default=defaults.csf,merge=True) %}
 {% endif %}
 
 {# Create import pillar #}

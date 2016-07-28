@@ -15,3 +15,6 @@
 #
 # You need to enable SMTPAUTH_RESTRICT and modify the exim configuration to use
 # this file. CC_ALLOW_SMTPAUTH can also be used to allow whole Country Codes
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

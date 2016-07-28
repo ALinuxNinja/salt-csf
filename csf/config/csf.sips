@@ -12,3 +12,6 @@
 # which you don't want to allow any incoming or outgoing traffic. This is
 # useful if you have IP addresses setup but do not yet wish to allow traffic
 # on them
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

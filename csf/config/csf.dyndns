@@ -21,3 +21,6 @@
 # own to allow full access, or using Advanced Allow/Deny Filters (see
 # readme.txt)
 #
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

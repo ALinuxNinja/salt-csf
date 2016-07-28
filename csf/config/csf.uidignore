@@ -12,3 +12,6 @@
 # Tracking feature - UID_INTERVAL
 #
 # For example, to ignore all root connections add 0 on a line by itself
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

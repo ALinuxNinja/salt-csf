@@ -26,3 +26,6 @@
 # user:bob
 #
 # Note: files owned by root are ignored
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

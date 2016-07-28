@@ -20,3 +20,6 @@
 # tcp/udp|in/out|s/d=port|s/d=ip
 #
 # See readme.txt for more information regarding advanced port filtering
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

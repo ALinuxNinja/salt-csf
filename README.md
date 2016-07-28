@@ -1,49 +1,37 @@
 # salt-csf
+A utility that allows you to manage CSF Firewall
 
-A utility to allow you to manage common functions of CSF Firewall.
+## Configuration Levels
+ * This formula has multiple configuration levels to allow for certain configuration to be set for all servers.
+ * Defaults (`defaults.yaml`) < common settings (`csf['host']['common']`) < host specific settings (`csf['host'][grains['id']]`)
+ * An value with a higher level will override a configuration with a lower level. For example, if `csf['host']['common']['config']['main']['TESTING']` is defined, and `csf['host'][grains['id']]['config']['main']['TESTING']` is defined, the value of `csf['host'][grains['id']]['config']['main']['TESTING']` will be used.
 
-## Currently Supported
- * Individual minion configuration
- * Enabling/Disabling CSF + Testing Mode
- * Syslog Restrictions
- * WebUI Restrictions
- * Enabling/Disabling autoupdate
- * Basic Firewall Settings including
-   * conntrack 
-   * faststart
-   * dropping of invalid packets
-   * filtering on single interface
-   * skipping filtering on interfaces
-   * ICMP enable/disable + rate-limiting
-   * Ipv4/Ipv6 SPI
-   * Allowed in/out TCP/UDP ports (csf.conf) for Ipv4 and Ipv6
-   * enabling/disabling IPv6
-   * IPv6 Strict Mode
-   * Basic custom rules (csf.allow/csf.deny/csf.ignore)
- * Advanced Firewall Settings (Iptables Rules in csfpre)
+## Configuration
+### csf.conf
+ * Configuration inside `csf.conf` can be changed by defining keys and values inside the `csf['host'][grains['id']]['config']['main']` dict. For example, `csf['host'][grains['id']]['config']['main']['TESTING']` configures the value of `TESTING` in `csf.conf`
+ * All keys/values will be default after installing CSF for the first time, so it may be a good idea to set keys such as `TCP_IN` and `UDP_IN` by default as well as disabling TESTING mode.
+### Additional Configuration Files
+ * The contents of remaining configuration files (csf.redirect, csf.blocklists, etc), can be defined using a list. For example, the list at `csf['host'][grains['id']]['config']['redirect']` sets the contents of csf.redirect
+ * By default, no files will be modified until the list is defined
+ * To be future proof, simply add an additional file in csf/config to define new configuration files. See other files in csf/config for the template format.
+ * See pillar.example for examples
 
-### Coming Soon
- * Flood Protection
- * Custom csfpre/csfpost entries
- * Blocklists
- * Full LFD support (allowing entries in csf.deny by LFD)
+## Firewall Rules (csfpre.sh/csfpost.sh)
+ * Configured using Rule Groups or manual rules
+ * `csfpre.sh` rules are configured in `csf['host'][grains['id']]['rule']['pre']` while `csfpost.sh` rules are configured in `csf['host'][grains['id']]['rule']['post']`
+ * Manual rules are added in the form of a list in `csf['host'][grains['id']]['rule']['pre']['contents']` or `csf['host'][grains['id']]['rule']['post']['contents']`
+ * Rule Groups are defined in `csf['rule']['_rulename_']` with `['_rulename_']` being the name of the rule group
+ * Rule Groups can be added to `csfpre.sh` or `csfpost.sh` by adding the `['_rulename_']` to the list at `csf['host'][grains['id']]['rule']['pre']['groups']` or `csf['host'][grains['id']]['rule']['post']['groups']`.
+ * Rule Groups are added before manual rules.
+
+## csf.deny
+ * csf.deny is used by LFD to block IPs that have failed to login
+ * If you manage csf.deny by defining csf['host']['common']['config']['deny'] or csf['host']['grains['id']]['config']['deny'], you will stop LFD from functioning properly as the IPs that LFD has written to the file will be removed each time the CSF state is run
+
+## Notes
+ * LFD will not start if sendmail or other applications are missing, if you see the lfd service attempt to start each time the CSF state is run, check the LFD logs
 
 ## Supported OSes
  * Ubuntu >= 12.04
  * Debian oldstable/stable/unstable
  * Centos 6/7
-
-Note that Centos 6 requires EPEL to be installed.
-No idea about RHEL support as I'm not rich.
-Fedora might be supported, though I haven't bothered to test due to it's fast releases.
-
-## Possible Settings
-See the [Wiki](https://github.com/ALinuxNinja/salt-csf/wiki/CSF-Pillar-Functions) for how the pillar is set. For missing functions, see defaults.yaml
-
-## Important!
-Setting up base ipv4/ipv6 rules in csf['common'] before running SLS is **highly encouraged**. The default configuration does _not_ allow **any** connections in or out.
-
-## Donations
-I do a lot of work to keep things working and to implement new features. If you find this useful, please consider a donation via the Bitcoin address below.
-
-Bitcoin: 14b7yU4qYmhrYTX1MCVQ9kLYQKCNX3x7qL

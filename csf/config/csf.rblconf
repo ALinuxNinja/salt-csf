@@ -25,3 +25,6 @@
 #
 # There should be no spaces on any of the configuration lines. Lines beginning
 # with # are comments
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

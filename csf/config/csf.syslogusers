@@ -23,3 +23,6 @@
 # You should only add user accounts and/or the default apache account if
 # absolutely necessary, otherwise you are compromising the effectiveness of
 # this feature
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

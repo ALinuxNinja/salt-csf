@@ -10,3 +10,6 @@
 ###############################################################################
 # The following is a list of regular expressions for the LOGSCANNER feature.
 # If a log line matches it will be ignored, otherwise it will be reported
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

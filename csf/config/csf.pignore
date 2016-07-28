@@ -32,3 +32,6 @@
 # as any process can change what is reported to the OS.
 #
 # For more information see readme.txt
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

@@ -2,19 +2,23 @@ csf:
   host:
     common: {}
     host1:
-      conf: {}
-      allow: {}
-      deny: {}
-      dirwatch: {}
-      redirect: {}
-      blocklist: {}
+      service:
+        csf: True
+        lfd: True
+      config:
+        main: {}
+        allow: {}
+        deny: {}
+        dirwatch: {}
+        redirect: {}
+        blocklist: {}
       rule:
+        post: {}
         pre:
           groups:
             - NGINX
-          rules:
+          contents:
             - /sbin/iptables...
-        post:
   rule:
     NGINX:
       - /sbin/iptables

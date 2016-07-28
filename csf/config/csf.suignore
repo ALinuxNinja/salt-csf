@@ -10,3 +10,6 @@
 ###############################################################################
 # The following is a list of usernames that are ignored during the LF_EXPLOIT
 # SUPERUSER check
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

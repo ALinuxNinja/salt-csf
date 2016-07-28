@@ -37,3 +37,6 @@
 #
 # See readme.txt for more information
 #
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

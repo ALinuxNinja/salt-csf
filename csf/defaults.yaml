@@ -1,48 +1,5 @@
 csf:
-  enable: True
-  testing:
-    enabled: False
-    interval: 5
-  syslog:
-    restrict: 0
-    group: "mysyslog"
-  ui: 2
-  autoupdate: True
-  firewall:
-    conntrack: False
-    faststart: True
-    drop_invalid: True
-    interface:
-      filter_on:
-        ipv4_interface: ""
-        ipv6_interface: ""
-      skip: []
-    dnat: {}
-    ipv4:
-      icmp:
-        in:
-          allowed: True
-          rate-limit: 0
-        out:
-          allowed: True
-          rate-limit: 0
-      spi: True
-      tcp:
-        in: []
-        out: []
-      udp:
-        in: []
-        out: []
-    ipv6:
-      enabled: True
-      strict: False
-      spi: True
-      tcp:
-        in: []
-        out: []
-      udp:
-        in: []
-        out: []
-  rule: {}
-  lfd:
-    enable: True
+  service:
+    csf: True
+    lfd: True
+  config: {}

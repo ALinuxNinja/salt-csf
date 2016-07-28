@@ -15,3 +15,6 @@
 # so will traverse directories if specified.
 #
 # An example where you might want to use this is /var/spool/cron
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

@@ -33,3 +33,6 @@
 # /var/lib/csf/csf.block.NAME and then restart csf and then lfd
 #
 # Each URL is scanned for an IPv4/CIDR address per line and if found is blocked
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

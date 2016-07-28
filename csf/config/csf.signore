@@ -10,3 +10,6 @@
 ###############################################################################
 # The following is a list of files that LF_SCRIPT_ALERT will ignore. You must
 # specify the full path to the directory containing the script
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}

@@ -20,3 +20,6 @@
 # Note: IP addressess listed in this file will NOT be ignored by lfd, so they
 # can still be blocked. If you do not want lfd to block an IP address you must
 # add it to csf.ignore
+{% for rule in conf -%}
+{{ rule }}
+{% endfor -%}
