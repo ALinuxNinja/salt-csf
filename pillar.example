@@ -1,5 +1,5 @@
 csf:
-  hosts:
+  host:
     common: {}
     host1:
       conf: {}
@@ -7,15 +7,15 @@ csf:
       deny: {}
       dirwatch: {}
       redirect: {}
-      blocklists: {}
-      rules:
+      blocklist: {}
+      rule:
         pre:
           groups:
             - NGINX
           rules:
             - /sbin/iptables...
         post:
-  rules:
+  rule:
     NGINX:
       - /sbin/iptables
-      - 
+      -
