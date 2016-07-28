@@ -2,17 +2,21 @@
 A utility that allows you to manage CSF Firewall
 
 ## Configuration
+
 ### Configuration Levels
  * This formula has multiple configuration levels to allow for certain configuration to be set for all servers.
  * Defaults (`defaults.yaml`) < common settings (`csf['host']['common']`) < host specific settings (`csf['host'][grains['id']]`)
  * An value with a higher level will override a configuration with a lower level. For example, if `csf['host']['common']['config']['main']['TESTING']` is defined, and `csf['host'][grains['id']]['config']['main']['TESTING']` is defined, the value of `csf['host'][grains['id']]['config']['main']['TESTING']` will be used.
+
 ### Enabling/Disabling CSF/LFD
  * CSF can be Enabled (True)/Disabled (False) by setting the boolean at `csf['host'][grains['id']]['service']['csf']` or `csf['host']['common']['service']['csf']`
  * LFD can be Enabled (True)/Disabled (False) by setting the boolean at `csf['host'][grains['id']]['service']['lfd']` or `csf['host']['common']['service']['lfd']`
+
 ### csf.conf
  * Configuration inside `csf.conf` can be changed by defining keys and values inside the `csf['host'][grains['id']]['config']['main']` dict. For example, `csf['host'][grains['id']]['config']['main']['TESTING']` configures the value of `TESTING` in `csf.conf`
  * All keys/values will be default after installing CSF for the first time, so it may be a good idea to set keys such as `TCP_IN` and `UDP_IN` by default as well as disabling TESTING mode.
  * Keys are case sensitive
+
 ### Additional Configuration Files
  * The contents of remaining configuration files (csf.redirect, csf.blocklists, etc), can be defined using a list. For example, the list at `csf['host'][grains['id']]['config']['redirect']` sets the contents of csf.redirect
  * By default, no files will be modified until the list is defined
