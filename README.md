@@ -37,6 +37,7 @@ A utility that allows you to manage CSF Firewall
 
 ## Notes
  * LFD will not start if sendmail or other applications are missing, if you see the lfd service attempt to start each time the CSF state is run, check the LFD logs
+ * Most of the SLS is future-proof; csf.conf is configured using Augeas, and additional configuration files can be added easily.
 
 ## Supported OSes
  * Ubuntu >= 12.04
