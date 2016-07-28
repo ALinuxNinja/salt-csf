@@ -38,7 +38,6 @@ lfd_service:
     - enable: False
 {% endif %}
 {% for conf, conf_val in csf['config'].iteritems() %}
-{% if conf_val %}
 {% if conf == 'main' %}
 csf_config:
   augeas.change:
@@ -61,7 +60,6 @@ csf_config-{{conf}}:
       conf: {{ conf_val }}
     - watch_in:
       - cmd: csf_reload
-{% endif %}
 {% endif %}
 {% endfor %}
 {% if csf['rule'] is defined and csf['rule'] %}

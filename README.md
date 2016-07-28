@@ -13,7 +13,7 @@ A utility that allows you to manage CSF Firewall
 ### Additional Configuration Files
  * The contents of remaining configuration files (csf.redirect, csf.blocklists, etc), can be defined using a list. For example, the list at `csf['host'][grains['id']]['config']['redirect']` sets the contents of csf.redirect
  * By default, no files will be modified until the list is defined
- * To be future proof, simply add an additional file in csf/config to define new configuration files. See other files in csf/config for the template format.
+ * To remove all previous values, simply set the value to `[]` (Empty List)
  * See pillar.example for examples
 
 ## Firewall Rules (csfpre.sh/csfpost.sh)

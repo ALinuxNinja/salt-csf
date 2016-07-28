@@ -1,25 +1,25 @@
 csf:
   host:
-    common: {}
-    host1:
+    common:
       service:
         csf: True
         lfd: True
+    host1:
+      service:
+        csf: True
+        lfd: False
       config:
-        main: {}
-        allow: {}
-        deny: {}
-        dirwatch: {}
-        redirect: {}
-        blocklist: {}
+        main:
+          TESTING: 0
+        ignore:
+          - "10.0.0.0/8 #Internal Subnet"
       rule:
         post: {}
         pre:
           groups:
-            - NGINX
+            - DOCKER
           contents:
             - /sbin/iptables...
   rule:
-    NGINX:
-      - /sbin/iptables
-      -
+    DOCKER:
+      - service docker restart
