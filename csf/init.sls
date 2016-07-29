@@ -8,11 +8,11 @@ csf_install:
 csf_packages:
   pkg.installed:
 
-    - pkgs: {{ csf['packages'] }}
+    - pkgs: {{ csf.packages }}
     - require_in:
       - '*'
 csf_service:
-{% if csf['service']['csf'] == True %}
+{% if csf.service.csf == True %}
   service.running:
     - name: csf
     - enable: True
@@ -29,7 +29,7 @@ csf_reload:
     - name: csf -x
 {% endif %}
 lfd_service:
-{% if csf['service']['lfd'] == True %}
+{% if csf.service.lfd == True %}
   service.running:
     - name: lfd
     - enable: True
