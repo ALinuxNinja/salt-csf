@@ -1,5 +1,5 @@
 ===
-csf
+salt-csf
 ===
 
 A utility that allows you to manage CSF Firewall.
@@ -7,7 +7,6 @@ A utility that allows you to manage CSF Firewall.
 Currently Work in Progress
 
 For instructions on configuration and use, see the `Wiki <https://github.com/ALinuxNinja/salt-csf/wiki>`_
-
 
 .. note::
 
