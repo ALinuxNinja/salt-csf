@@ -5,6 +5,7 @@ csf:
         csf: True
         lfd: True
     host1:
+      group: GATEWAY
       service:
         csf: True
         lfd: False
@@ -16,10 +17,15 @@ csf:
       rule:
         post: {}
         pre:
-          groups:
+          rulesets:
             - DOCKER
-          contents:
+          customrules:
             - /sbin/iptables...
-  rule:
+  group:
+    GATEWAY:
+      service:
+        csf: False
+        lfd: True
+  ruleset:
     DOCKER:
       - service docker restart

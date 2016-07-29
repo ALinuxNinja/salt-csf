@@ -9,18 +9,18 @@
 # URL: http://www.configserver.com
 # Email: sales@waytotheweb.com
 ###############################################################################
-{% if rule['groups'] is defined and rule['groups'] -%}
-## Group Rules
-{%- for group in rule['groups'] %}
-### Group: {{group}}
-{%- for rule in pillar['csf']['rule'][group] %}
+{% if rule['rulesets'] is defined and rule['rulesets'] -%}
+## Ruleset Rules
+{%- for ruleset in rule['rulesets'] %}
+### Ruleset: {{ruleset}}
+{%- for rule in pillar['csf']['ruleset'][ruleset] %}
 {{ rule }}
 {%- endfor %}
 {%- endfor -%}
 {%- endif %}
-{% if rule['contents'] is defined and rule['contents'] -%}
+{% if rule['customrules'] is defined and rule['customrules'] -%}
 ## Manual Rules
-{%- for rule in rule['contents'] %}
+{%- for rule in rule['customrules'] %}
 {{ rule }}
 {%- endfor %}
 {%- endif %}

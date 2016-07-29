@@ -47,8 +47,10 @@ csf_config:
 {% for setting, setting_val in conf_val.iteritems() %}
       - set {{ setting }} '"{{ setting_val }}"'
 {% endfor %}
+{% if csf['service']['csf'] == True %}
     - watch_in:
       - cmd: csf_reload
+{% endif %}
 {% else %}
 csf_config-{{conf}}:
   file.managed:
@@ -58,8 +60,10 @@ csf_config-{{conf}}:
     - template: jinja
     - context:
       conf: {{ conf_val }}
+{% if csf['service']['csf'] == True %}
     - watch_in:
       - cmd: csf_reload
+{% endif %}
 {% endif %}
 {% endfor %}
 {% if csf['rule'] is defined and csf['rule'] %}
@@ -72,8 +76,10 @@ csf_rule-pre:
     - template: jinja
     - context:
       rule: {{ csf['rule']['pre'] }}
+{% if csf['service']['csf'] == True %}
     - watch_in:
       - cmd: csf_reload
+{% endif %}
 {% elif csf['rule']['post'] is defined and csf['rule']['post'] %}
 csf_rule-post:
   file.managed:
@@ -83,7 +89,9 @@ csf_rule-post:
     - template: jinja
     - context:
       rule: {{ csf['rule']['post'] }}
+{% if csf['service']['csf'] == True %}
     - watch_in:
       - cmd: csf_reload
+{% endif %}
 {% endif %}
 {% endif %}
