@@ -5,7 +5,7 @@ For instructions on configuration and use, see the [Wiki](https://github.com/ALi
 
 ## Available States:
  * [csf](#csf)
- * [csf.config](#csf.config)
+ * [csf.config](#csfconfig)
 
 ### csf
 Installs CSF/LFD and manages CSF/LFD service status
