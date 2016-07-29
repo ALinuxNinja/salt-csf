@@ -1,5 +1,5 @@
 ===
-salt-csf
+csf
 ===
 
 A utility that allows you to manage CSF Firewall.
