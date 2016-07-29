@@ -7,6 +7,7 @@ csf_install:
 
 csf_packages:
   pkg.installed:
+
     - pkgs: {{ csf['packages'] }}
     - require_in:
       - '*'
@@ -36,62 +37,4 @@ lfd_service:
   service.dead:
     - name: lfd
     - enable: False
-{% endif %}
-{% for conf, conf_val in csf['config'].iteritems() %}
-{% if conf == 'main' %}
-csf_config:
-  augeas.change:
-    - lens: simplevars.lns
-    - context: /files/etc/csf/csf.conf
-    - changes:
-{% for setting, setting_val in conf_val.iteritems() %}
-      - set {{ setting }} '"{{ setting_val }}"'
-{% endfor %}
-{% if csf['service']['csf'] == True %}
-    - watch_in:
-      - cmd: csf_reload
-{% endif %}
-{% else %}
-csf_config-{{conf}}:
-  file.managed:
-    - name: /etc/csf/csf.{{conf}}
-    - source: salt://csf/config/csf.{{conf}}
-    - mode: 644
-    - template: jinja
-    - context:
-      conf: {{ conf_val }}
-{% if csf['service']['csf'] == True %}
-    - watch_in:
-      - cmd: csf_reload
-{% endif %}
-{% endif %}
-{% endfor %}
-{% if csf['rule'] is defined and csf['rule'] %}
-{% if csf['rule']['pre'] is defined and csf['rule']['pre'] %}
-csf_rule-pre:
-  file.managed:
-    - name: /etc/csf/csfpre.sh
-    - source: salt://csf/config/csfpre.sh
-    - mode: 755
-    - template: jinja
-    - context:
-      rule: {{ csf['rule']['pre'] }}
-{% if csf['service']['csf'] == True %}
-    - watch_in:
-      - cmd: csf_reload
-{% endif %}
-{% elif csf['rule']['post'] is defined and csf['rule']['post'] %}
-csf_rule-post:
-  file.managed:
-    - name: /etc/csf/csfpost.sh
-    - source: salt://csf/config/csfpost.sh
-    - mode: 755
-    - template: jinja
-    - context:
-      rule: {{ csf['rule']['post'] }}
-{% if csf['service']['csf'] == True %}
-    - watch_in:
-      - cmd: csf_reload
-{% endif %}
-{% endif %}
 {% endif %}
