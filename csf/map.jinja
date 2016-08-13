@@ -26,7 +26,7 @@
 {% endif %}
 
 {# Merge in minion specific settings to pillar #}
-{% if pillar['csf'] is defined and pillar['csf']['host'] is defined and pillar['csf']['host'][grains['id']] is defined  and pillar['csf']['host'][grains['id']]['config'] is defined %}
+{% if pillar['csf'] is defined and pillar['csf']['host'] is defined and pillar['csf']['host'][grains['id']] is defined %}
 {% set pillar_minion = salt['pillar.get']('csf:host:'~grains['id'],default=pillar_group,merge=True) %}
 {% else %}
 {% set pillar_minion = salt['pillar.get']('',default=pillar_group,merge=True) %}
