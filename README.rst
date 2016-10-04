@@ -23,6 +23,7 @@ Available states
 Install CSF/LFD and manage CSF/LFD service status
 
 ``csf.service``
+---------------
 
 Configures CSF/LFD services
 
