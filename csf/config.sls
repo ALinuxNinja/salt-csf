@@ -2,6 +2,19 @@
 
 include:
   - csf
+  - csf.service
+/etc/csf/csfpre.d:
+  file.directory:
+    - makedirs: True
+    - user: root
+    - group: root
+    - mode: 0755
+/etc/csf/csfpost.d:
+  file.directory:
+    - makedirs: True
+    - user: root
+    - group: root
+    - mode: 0755
 {% if csf.service.csf == True %}
 {% for conf, conf_val in csf.config.iteritems() %}
 {% if conf == 'main' %}
@@ -27,28 +40,28 @@ include:
       - cmd: csf_reload
 {% endif %}
 {% endfor %}
-{% if csf.rule is defined and csf.rule %}
-{% if csf.rule.pre is defined and csf.rule.pre %}
 /etc/csf/csfpre.sh:
   file.managed:
     - source: salt://csf/config/csfpre.sh
     - mode: 755
     - template: jinja
     - context:
+      {% if csf.rule is defined and csf.rule and csf.rule.pre is defined %}
       rule: {{ csf.rule.pre }}
+      {% endif %}
+      csf: {{ csf }}
     - watch_in:
       - cmd: csf_reload
-{% endif %}
-{% if csf.rule.post is defined and csf.rule.post %}
 /etc/csf/csfpost.sh:
   file.managed:
     - source: salt://csf/config/csfpost.sh
     - mode: 755
     - template: jinja
     - context:
+      {% if csf.rule is defined and csf.rule and  csf.rule.post is defined %}
       rule: {{ csf.rule.post }}
+      {% endif %}
+      csf: {{ csf }}
     - watch_in:
       - cmd: csf_reload
-{% endif %}
-{% endif %}
 {% endif %}

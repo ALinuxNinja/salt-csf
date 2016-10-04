@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 ###############################################################################
 # Managed by Salt, do not manually edit. Your changes will be lost.
 # SLS: csf
@@ -9,6 +10,7 @@
 # URL: http://www.configserver.com
 # Email: sales@waytotheweb.com
 ###############################################################################
+{%- if rule is defined  -%}
 {% if rule['rulesets'] is defined and rule['rulesets'] -%}
 ## Ruleset Rules
 {%- for ruleset in rule['rulesets'] %}
@@ -23,4 +25,14 @@
 {%- for rule in rule['customrules'] %}
 {{ rule }}
 {%- endfor %}
+{%- endif -%}
 {%- endif %}
+
+## Source files in alphabetical order
+echo "Running additional csfpre.d scripts"
+if [ -d /etc/csf/csfpost.d ]; then
+        for file in $(ls -1 /etc/csf/csfpost.d/ | sort -V); do
+                /etc/csf/csfpost.d/${file}
+        done
+fi
+trap 'exit $?' ERR
