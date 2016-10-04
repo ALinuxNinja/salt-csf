@@ -41,6 +41,6 @@ if [ -f /etc/csf/status/csfpre ]; then
         	done
 	fi
 	## Script completed successfully
-	touch /etc/csf/csfpost
+	touch /etc/csf/status/csfpost
 fi
 trap 'exit $?' ERR
