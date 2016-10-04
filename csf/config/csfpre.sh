@@ -10,6 +10,9 @@ set -e
 # URL: http://www.configserver.com
 # Email: sales@waytotheweb.com
 ###############################################################################
+## Delete status file
+rm -f /etc/csf/status/csfpre
+
 {%- if rule is defined -%}
 {% if rule['rulesets'] is defined and rule['rulesets'] -%}
 ## Ruleset Rules
@@ -35,4 +38,7 @@ if [ -d /etc/csf/csfpre.d ]; then
 		/etc/csf/csfpre.d/${file}
 	done
 fi
+
+## Completed successfully
+touch /etc/csf/status/csfpre
 trap 'exit $?' ERR

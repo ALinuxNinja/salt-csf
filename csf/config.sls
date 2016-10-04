@@ -26,7 +26,7 @@ include:
 {% for setting, setting_val in conf_val.iteritems() %}
       - set {{ setting }} '"{{ setting_val }}"'
 {% endfor %}
-    - watch_in:
+    - onchanges_in:
       - cmd: csf_reload
 {% else %}
 /etc/csf/csf.{{conf}}:
@@ -36,7 +36,7 @@ include:
     - template: jinja
     - context:
       conf: {{ conf_val }}
-    - watch_in:
+    - onchanges_in:
       - cmd: csf_reload
 {% endif %}
 {% endfor %}
@@ -50,7 +50,7 @@ include:
       rule: {{ csf.rule.pre }}
       {% endif %}
       csf: {{ csf }}
-    - watch_in:
+    - onchanges_in:
       - cmd: csf_reload
 /etc/csf/csfpost.sh:
   file.managed:
@@ -62,6 +62,6 @@ include:
       rule: {{ csf.rule.post }}
       {% endif %}
       csf: {{ csf }}
-    - watch_in:
+    - onchanges_in:
       - cmd: csf_reload
 {% endif %}
