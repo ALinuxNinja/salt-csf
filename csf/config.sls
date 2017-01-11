@@ -72,12 +72,8 @@ include:
   file.managed:
     - source: salt://csf/config/csfpost.sh
     - mode: 0755
-    - template: jinja
-    - context:
-      {% if csf.rule is defined and csf.rule and  csf.rule.post is defined %}
-      rule: {{ csf.rule.post }}
-      {% endif %}
-      csf: {{ csf }}
+    - user: root
+    - group: root
     - onchanges_in:
       - cmd: csf_reload
 {% for role,role_opts in csf.rule.post.iteritems() %}
