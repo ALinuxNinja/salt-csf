@@ -9,12 +9,18 @@ include:
     - user: root
     - group: root
     - mode: 0755
+    - clean: True
+    - require_in:
+      - file: /etc/csf/csfpre.sh:
 /etc/csf/csfpost.d:
   file.directory:
     - makedirs: True
     - user: root
     - group: root
     - mode: 0755
+    - clean: True
+    - require_in:
+      - file: /etc/csf/csfpost.sh:
 {% if csf.service.csf == True %}
 {% for conf, conf_val in csf.config.iteritems() %}
 {% if conf == 'main' %}
@@ -31,11 +37,12 @@ include:
 {% else %}
 /etc/csf/csf.{{conf}}:
   file.managed:
-    - source: salt://csf/config/csf.{{conf}}
-    - mode: 644
+    - source: salt://csf/config/csf.standardconf
+    - mode: 0644
     - template: jinja
     - context:
       conf: {{ conf_val }}
+      conf_name: {{ conf }}
     - onchanges_in:
       - cmd: csf_reload
 {% endif %}
@@ -43,19 +50,28 @@ include:
 /etc/csf/csfpre.sh:
   file.managed:
     - source: salt://csf/config/csfpre.sh
-    - mode: 755
-    - template: jinja
-    - context:
-      {% if csf.rule is defined and csf.rule and csf.rule.pre is defined %}
-      rule: {{ csf.rule.pre }}
-      {% endif %}
-      csf: {{ csf }}
+    - mode: 0755
+    - user: root
+    - group: root
     - onchanges_in:
       - cmd: csf_reload
+{% for role,role_opts in csf.rule.pre.iteritems() %}
+/etc/csf/csfpre.d/{{role}}.sh:
+  file.managed:
+    - source: salt://csf/config/csf_role_rule.sh
+    - mode: 0755
+    - user: root
+    - group: root
+    - context:
+      role: {{role}}
+      role_opts: {{role_opts}}
+    - onchanges_in:
+      - cmd: csf_reload
+{% endfor %}
 /etc/csf/csfpost.sh:
   file.managed:
     - source: salt://csf/config/csfpost.sh
-    - mode: 755
+    - mode: 0755
     - template: jinja
     - context:
       {% if csf.rule is defined and csf.rule and  csf.rule.post is defined %}
@@ -64,4 +80,17 @@ include:
       csf: {{ csf }}
     - onchanges_in:
       - cmd: csf_reload
+{% for role,role_opts in csf.rule.post.iteritems() %}
+/etc/csf/csfpost.d/{{role}}.sh:
+  file.managed:
+    - source: salt://csf/config/csf_role_rule.sh
+    - mode: 0755
+    - user: root
+    - group: root
+    - context:
+      role: {{role}}
+      role_opts: {{role_opts}}
+    - onchanges_in:
+      - cmd: csf_reload
+{% endfor %}
 {% endif %}

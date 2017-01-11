@@ -3,3 +3,6 @@ csf:
     csf: True
     lfd: True
   config: {}
+  rule:
+    pre: {}
+    post: {}
