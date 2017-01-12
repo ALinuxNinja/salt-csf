@@ -1,14 +1,11 @@
+#!/usr/bin/env bash
 ###############################################################################
+# {{role}}.sh
 # Managed by Salt, do not manually edit. Your changes will be lost.
 # SLS: csf
 # Author: ALinuxNinja
 # URL: https://github.com/ALinuxNinja/salt-csf
 ###############################################################################
-# Copyright 2006-2016, Way to the Web Limited
-# URL: http://www.configserver.com
-# Email: sales@waytotheweb.com
-###############################################################################
-# The following is a list of log files for the LOGSCANNER feature
-{% for rule in conf -%}
+{% for rule in role_opts -%}
 {{ rule }}
 {% endfor -%}

@@ -25,10 +25,9 @@ csf_service:
 csf_reload:
   cmd.run:
     - name: csf -r
-csf_test:
-  cmd.run:
-    - name: if [ ! -f "/etc/csf/status/csfpost" ]; then echo "csfpre/csfpost scripts failed to initialize"; exit 1;fi
-    - shell: /bin/bash
+    - creates:
+      - /etc/csf/status/csfpost
+      - /etc/csf/status/csfpre
 {% else %}
   service.dead:
     - name: csf

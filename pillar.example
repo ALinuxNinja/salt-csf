@@ -1,31 +1,15 @@
 csf:
-  host:
-    common:
-      service:
-        csf: True
-        lfd: True
-    host1:
-      group: GATEWAY
-      service:
-        csf: True
-        lfd: False
-      config:
-        main:
-          TESTING: 0
-        ignore:
-          - "10.0.0.0/8 #Internal Subnet"
-      rule:
-        post: {}
-        pre:
-          rulesets:
-            - DOCKER
-          customrules:
-            - /sbin/iptables...
-  group:
-    GATEWAY:
-      service:
-        csf: False
-        lfd: True
-  ruleset:
-    DOCKER:
-      - service docker restart
+  service:
+    csf: True
+    lfd: True
+  config:
+    main:
+      TESTING: 0
+    ignore:
+      somerole:
+        - "10.0.0.0/8 #Internal Subnet"
+  rule:
+    post: {}
+    pre:
+      somerole:
+        - /sbin/iptables...
