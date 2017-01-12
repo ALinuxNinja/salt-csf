@@ -9,6 +9,8 @@ A utility that allows you to manage CSF Firewall.
     See the full `Salt Formulas installation and usage instructions
     <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
 
+    Check current tags to retrieve a particular version of the formula.
+
 Available states
 ================
 
