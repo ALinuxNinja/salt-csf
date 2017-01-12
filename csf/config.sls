@@ -11,7 +11,7 @@ include:
     - mode: 0755
     - clean: True
     - require_in:
-      - file: /etc/csf/csfpre.sh:
+      - file: /etc/csf/csfpre.sh
 /etc/csf/csfpost.d:
   file.directory:
     - makedirs: True
@@ -20,7 +20,7 @@ include:
     - mode: 0755
     - clean: True
     - require_in:
-      - file: /etc/csf/csfpost.sh:
+      - file: /etc/csf/csfpost.sh
 {% if csf.service.csf == True %}
 {% for conf, conf_val in csf.config.iteritems() %}
 {% if conf == 'main' %}
