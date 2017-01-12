@@ -1,5 +1,4 @@
 {% from "csf/map.jinja" import csf with context %}
-
 include:
   - csf
 /etc/csf/status:

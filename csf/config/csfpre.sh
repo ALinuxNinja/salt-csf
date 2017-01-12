@@ -7,9 +7,10 @@
 # URL: https://github.com/ALinuxNinja/salt-csf
 ###############################################################################
 set -e
+# Set traps to catch errors (prevents /etc/csf/status/csfpre from being created)
 trap 'echo "csfpre.sh failed";exit $?' 1 2 3 13 15
 
-## Source files in alphabetical order
+## Runs files in alphabetical order
 echo "Running csfpre rules"
 if [ -d /etc/csf/csfpre.d ]; then
 	for file in $(ls -1 /etc/csf/csfpre.d/ | sort -V); do

@@ -7,7 +7,6 @@ csf_install:
 
 csf_packages:
   pkg.installed:
-
     - pkgs: {{ csf.packages }}
     - require_in:
       - '*'
