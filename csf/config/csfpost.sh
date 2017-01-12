@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 ###############################################################################
-# csfpre.sh
+# csfpost.sh
 # Managed by Salt, do not manually edit. Your changes will be lost.
 # SLS: csf
-# Author: ALinuxNinja ALinuxNinja <dev@alinux.ninja>
+# Author: ALinuxNinja ALinuxNinja
 # URL: https://github.com/ALinuxNinja/salt-csf
 ###############################################################################
 set -e
-set -o errtrace
-trap 'exit $?' ERR
+trap 'echo "csfpost.sh failed";exit $?' 1 2 3 13 15
 
 ## Source files in alphabetical order
 echo "Running csfpre rules"
