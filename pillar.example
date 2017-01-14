@@ -1,0 +1,15 @@
+csf:
+  service: # Enables/Disables services
+    csf: True # Enables/Disables CSF
+    lfd: True # Enables/Disables LFD
+  config:
+    main: # Configures values in csf.conf. Values are configured in key:value pairs
+      TESTING: 0 # Sets the value of the TESTING key to 0
+    ignore: # Configures values in csf.ignore
+      somerole: # Dictionary to hold rules for each pillar.
+        - "10.0.0.0/8 #Internal Subnet" # Rule in csf.ignore, represented as a single line.
+  rule: # Configures custom rules in csfpre/csfpost
+    post: {} # Configures csfpost rules
+    pre: # Configures csfpre rules
+      somerole: # Dictionary to hold rules for each pillar. Dictionaries are run in alphanumerical order when csfpre rules are executed.
+        - /sbin/iptables... # Rule in csfpre that will be run before CSF rules are added.

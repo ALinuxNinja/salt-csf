@@ -1,0 +1,22 @@
+{% import_yaml "csf/osmap.yaml" as osmap %}
+{% import_yaml "csf/defaults.yaml" as defaults %}
+
+
+{# Map OS to OSName #}
+{% set os_distro = salt['grains.filter_by'](osmap,grain='os',default='Debian') %}
+
+{# Map Operating System version #}
+{% if grains['osmajorrelease'] is defined %}
+{% set os_settings = salt['grains.filter_by'](os_distro,grain='osmajorrelease',default='common') %}
+{% else %}
+{% set os_settings = salt['grains.filter_by'](os_distro,grain='osrelease',default='common') %}
+{% endif %}
+
+{# Merge in defaults to OS settings #}
+{% do defaults.csf.update(os_settings) %}
+
+{# Merge in pillar #}
+{% set final_pillar = salt['pillar.get']('csf',default=defaults.csf,merge=True) %}
+
+{# Create import pillar #}
+{% set csf = final_pillar %}

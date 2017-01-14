@@ -1,0 +1,13 @@
+###############################################################################
+# csf.{{ conf_name }}
+# Managed by Salt, do not manually edit. Your changes will be lost.
+# SLS: csf
+# Author: ALinuxNinja
+# URL: https://github.com/ALinuxNinja/salt-csf
+###############################################################################
+{% for role,role_opts in conf.iteritems() -%}
+# Role: {{role}}
+{% for rule in role_opts -%}
+{{ rule }}
+{% endfor -%}
+{%- endfor -%}
