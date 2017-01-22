@@ -62,6 +62,7 @@ include:
     - mode: 0755
     - user: root
     - group: root
+    - template: jinja
     - context:
       role: {{role}}
       role_opts: {{role_opts}}
@@ -86,6 +87,7 @@ include:
     - mode: 0755
     - user: root
     - group: root
+    - template: jinja
     - context:
       role: {{role}}
       role_opts: {{role_opts}}
