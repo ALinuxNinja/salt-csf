@@ -2,13 +2,7 @@ csf:
   service:
     csf: True
     lfd: True
-  config:
-    main:
-      TESTING: 0
-      TCP_IN: ""
-      TCP_OUT: "1:65535"
-      UDP_IN: ""
-      UDP_OUT: "1:65535"
+  config: {}
   rule:
     pre: {}
     post: {}
