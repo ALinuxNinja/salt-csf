@@ -67,6 +67,8 @@ include:
       role_opts: {{role_opts}}
     - onchanges_in:
       - cmd: csf_reload
+    - require:
+      file: /etc/csf/csfpre.d
 {% endfor %}
 /etc/csf/csfpost.sh:
   file.managed:
@@ -88,5 +90,7 @@ include:
       role_opts: {{role_opts}}
     - onchanges_in:
       - cmd: csf_reload
+    - require:
+      file: /etc/csf/csfpost.d
 {% endfor %}
 {% endif %}
