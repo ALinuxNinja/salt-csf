@@ -69,8 +69,8 @@ include:
     - onchanges_in:
       - cmd: csf_reload
     - require:
-      file: /etc/csf/csfpre.sh
-      file: /etc/csf/csfpre.d
+      - file: /etc/csf/csfpre.sh
+      - file: /etc/csf/csfpre.d
 {% endfor %}
 /etc/csf/csfpost.sh:
   file.managed:
@@ -94,7 +94,7 @@ include:
     - onchanges_in:
       - cmd: csf_reload
     - require:
-      file: /etc/csf/csfpost.sh
-      file: /etc/csf/csfpost.d
+      - file: /etc/csf/csfpost.sh
+      - file: /etc/csf/csfpost.d
 {% endfor %}
 {% endif %}
