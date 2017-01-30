@@ -79,6 +79,7 @@ include:
     - user: root
     - group: root
     - onchanges_in:
+
       - cmd: csf_reload
 {% for role,role_opts in csf.rule.post.iteritems() %}
 /etc/csf/csfpost.d/{{role}}.sh:
