@@ -14,6 +14,7 @@ trap 'echo "csfpre.sh failed";exit $?' 1 2 3 13 15
 echo "Running csfpre rules"
 if [ -d /etc/csf/csfpre.d ]; then
 	for file in $(ls -1 /etc/csf/csfpre.d/ | sort -V); do
+		chmod u+x /etc/csf/csfpre.d/${file}
 		/etc/csf/csfpre.d/${file}
 	done
 fi

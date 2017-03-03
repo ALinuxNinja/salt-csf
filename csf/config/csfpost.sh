@@ -11,10 +11,11 @@ set -e
 trap 'echo "csfpost.sh failed";exit $?' 1 2 3 13 15
 
 ## Run files in alphabetical order
-echo "Running csfpre rules"
-if [ -d /etc/csf/csfpre.d ]; then
+echo "Running csfpost rules"
+if [ -d /etc/csf/csfpost.d ]; then
 	for file in $(ls -1 /etc/csf/csfpost.d/ | sort -V); do
-		/etc/csf/csfpre.d/${file}
+		chmod u+x /etc/csf/csfpost.d/${file}
+		/etc/csf/csfpost.d/${file}
 	done
 fi
 
