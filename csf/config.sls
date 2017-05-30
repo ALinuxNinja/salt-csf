@@ -10,6 +10,8 @@ include:
     - group: root
     - mode: 0755
     - clean: True
+    - onchanges_in:
+      - cmd: csf_reload
 /etc/csf/csfpost.d:
   file.directory:
     - makedirs: True
@@ -17,6 +19,8 @@ include:
     - group: root
     - mode: 0755
     - clean: True
+    - onchanges_in:
+      - cmd: csf_reload
 {% if csf.service.csf == True %}
 {% for conf, conf_val in csf.config.iteritems() %}
 {% if conf == 'main' %}
