@@ -10,8 +10,6 @@ include:
     - group: root
     - mode: 0755
     - clean: True
-    - require_in:
-      - file: /etc/csf/csfpre.sh
 /etc/csf/csfpost.d:
   file.directory:
     - makedirs: True
@@ -19,8 +17,6 @@ include:
     - group: root
     - mode: 0755
     - clean: True
-    - require_in:
-      - file: /etc/csf/csfpost.sh
 {% if csf.service.csf == True %}
 {% for conf, conf_val in csf.config.iteritems() %}
 {% if conf == 'main' %}
@@ -79,7 +75,6 @@ include:
     - user: root
     - group: root
     - onchanges_in:
-
       - cmd: csf_reload
 {% for role,role_opts in csf.rule.post.iteritems() %}
 /etc/csf/csfpost.d/{{role}}.sh:
