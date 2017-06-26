@@ -23,14 +23,14 @@ include:
       - cmd: csf_reload
 {% if csf.service.csf == True %}
 {% for conf, conf_val in csf.config.iteritems() %}
-{% if conf == 'main' %}
+{% if conf == 'main' and conf_val != "" %}
 /etc/csf/csf.conf:
   augeas.change:
     - lens: simplevars.lns
     - context: /files/etc/csf/csf.conf
     - changes:
 {% for setting, setting_val in conf_val.iteritems() %}
-      - set {{ setting }} "{{ setting_val }}"
+      - set {{ setting }} '\"{{ setting_val }}\"'
 {% endfor %}
     - onchanges_in:
       - cmd: csf_reload
