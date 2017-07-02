@@ -30,7 +30,7 @@ include:
     - context: /files/etc/csf/csf.conf
     - changes:
 {% for setting, setting_val in conf_val.iteritems() %}
-      - set {{ setting }} '"{{ setting_val }}"'
+      - "set {{ setting }} \"{{ setting_val }}\""
 {% endfor %}
     - onchanges_in:
       - cmd: csf_reload
