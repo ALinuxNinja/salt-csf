@@ -57,7 +57,7 @@ csf_config-{{setting}}:
 {% set csfpre_files = salt['file.find']('/etc/csf/csfpre.d',type='f',print='name') %}
 {% for csfpre_file in csfpre_files %}
 {% if csfpre_file.split('.sh')[0] not in csf.rule.pre %}
-csfpre_clean-{{ csfpre_file }}:
+csfpre.d_clean-{{ csfpre_file }}:
   file.absent:
     - name: /etc/csf/csfpre.d/{{csfpre_file}}
     - onchanges_in:
@@ -88,6 +88,16 @@ csfpre_clean-{{ csfpre_file }}:
     - group: root
     - onchanges_in:
       - cmd: csf_reload
+{% set csfpost_files = salt['file.find']('/etc/csf/csfpost.d',type='f',print='name') %}
+{% for csfpost_file in csfpost_files %}
+{% if csfpost_file.split('.sh')[0] not in csf.rule.post %}
+csfpost.d_clean-{{ csfpre_file }}:
+  file.absent:
+    - name: /etc/csf/csfpost.d/{{csfpost_file}}
+    - onchanges_in:
+      - cmd: csf_reload
+{% endif %}
+{% endfor %}
 {% for role,role_opts in csf.rule.post.iteritems() %}
 /etc/csf/csfpost.d/{{role}}.sh:
   file.managed:
