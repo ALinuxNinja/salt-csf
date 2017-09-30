@@ -28,7 +28,7 @@ include:
   file.replace:
 {% for setting, setting_val in conf_val.iteritems() %}
     - pattern: {{ setting }}\s*\=\s*.*
-    - replace: "{{ setting }} = \"{{ setting_val }}\""
+    - repl: "{{ setting }} = \"{{ setting_val }}\""
 {% endfor %}
     - onchanges_in:
       - cmd: csf_reload
