@@ -9,7 +9,7 @@ include:
     - user: root
     - group: root
     - mode: 0755
-    - clean: True
+    - clean: False
     - onchanges_in:
       - cmd: csf_reload
 /etc/csf/csfpost.d:
@@ -54,7 +54,6 @@ csf_config-{{setting}}:
     - group: root
     - onchanges_in:
       - cmd: csf_reload
-
 {% set csfpre_files = salt['file.find']('/etc/csf/csfpre.d',type='f',print='name',maxdepth=0) %}
 {% for csfpre_file in csfpre_files %}
 {% if csfpre_file not in csf.rule.pre %}
