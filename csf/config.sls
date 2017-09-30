@@ -60,6 +60,8 @@ csf_config-{{setting}}:
 csfpre_clean-{{ csfpre_file }}:
   file.absent:
     - name: /etc/csf/csfpre.d/{{csfpre_file}}
+    - onchanges_in:
+      - cmd: csf_reload
 {% endif %}
 {% endfor %}
 {% for role,role_opts in csf.rule.pre.iteritems() %}
