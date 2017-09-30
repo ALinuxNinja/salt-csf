@@ -25,7 +25,7 @@ include:
 {% for conf, conf_val in csf.config.iteritems() %}
 {% if conf == 'main' and conf_val != "" %}
 {% for setting, setting_val in conf_val.iteritems() %}
-/etc/csf/csf.conf-{{setting}}:
+csf_config-{{setting}}:
   file.replace:
     - name: /etc/csf/csf.conf
     - pattern: {{ setting }} \=.*
