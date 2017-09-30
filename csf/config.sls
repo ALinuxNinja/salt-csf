@@ -27,7 +27,7 @@ include:
 /etc/csf/csf.conf:
   file.replace:
 {% for setting, setting_val in conf_val.iteritems() %}
-    - pattern: {{ setting }}\s*\=\s*.*
+    - pattern: {{ setting }} \=.*
     - repl: "{{ setting }} = \"{{ setting_val }}\""
 {% endfor %}
     - onchanges_in:
