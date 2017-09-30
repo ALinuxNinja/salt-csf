@@ -24,14 +24,15 @@ include:
 {% if csf.service.csf == True %}
 {% for conf, conf_val in csf.config.iteritems() %}
 {% if conf == 'main' and conf_val != "" %}
-/etc/csf/csf.conf:
-  file.replace:
 {% for setting, setting_val in conf_val.iteritems() %}
+/etc/csf/csf.conf-{{setting}}:
+  file.replace:
+    - name: /etc/csf/csf.conf
     - pattern: {{ setting }} \=.*
     - repl: "{{ setting }} = \"{{ setting_val }}\""
-{% endfor %}
     - onchanges_in:
       - cmd: csf_reload
+{% endfor %}
 {% else %}
 /etc/csf/csf.{{conf}}:
   file.managed:
