@@ -54,6 +54,15 @@ csf_config-{{setting}}:
     - group: root
     - onchanges_in:
       - cmd: csf_reload
+
+{% set csfpre_files = salt['file.find']('/etc/csf/csfpre.d',type='f',print='name',maxdepth=0) %}
+{% for csfpre_file in csfpre_files %}
+{% if csfpre_file not in csf.rule.pre %}
+csfpre_clean-{{ csfpre_file }}:
+  file.absent:
+    - name: /etc/csf/csfpre.d/{{csfpre_file}}
+{% endif %}
+{% endfor %}
 {% for role,role_opts in csf.rule.pre.iteritems() %}
 /etc/csf/csfpre.d/{{role}}.sh:
   file.managed:
