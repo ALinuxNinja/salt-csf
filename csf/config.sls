@@ -18,7 +18,7 @@ include:
     - user: root
     - group: root
     - mode: 0755
-    - clean: True
+    - clean: False
     - onchanges_in:
       - cmd: csf_reload
 {% if csf.service.csf == True %}
