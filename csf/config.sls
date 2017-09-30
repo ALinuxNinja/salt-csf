@@ -91,7 +91,7 @@ csfpre.d_clean-{{ csfpre_file }}:
 {% set csfpost_files = salt['file.find']('/etc/csf/csfpost.d',type='f',print='name') %}
 {% for csfpost_file in csfpost_files %}
 {% if csfpost_file.split('.sh')[0] not in csf.rule.post %}
-csfpost.d_clean-{{ csfpre_file }}:
+csfpost.d_clean-{{ csfpost_file }}:
   file.absent:
     - name: /etc/csf/csfpost.d/{{csfpost_file}}
     - onchanges_in:
