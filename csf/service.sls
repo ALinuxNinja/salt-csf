@@ -6,7 +6,7 @@ include:
     - user: root
     - group: root
     - mode: 0755
-    - clean: False
+    - clean: True
 csf_service:
 {% if csf.service.csf == True %}
   service.running:
