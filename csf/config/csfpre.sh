@@ -8,7 +8,7 @@
 ###############################################################################
 set -e
 # Clear status files
-rm /etc/csf/status/*
+rm -f /etc/csf/status/*
 # Set traps to catch errors (prevents /etc/csf/status/csfpre from being created)
 trap 'echo "csfpre.sh failed";exit $?' 1 2 3 13 15
 
