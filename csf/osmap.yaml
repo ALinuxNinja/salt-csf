@@ -2,7 +2,7 @@ Ubuntu:
   common:
     packages:
       - iptables
-      - libpython2.7
+      - libpython2.7-stdlib
       - augeas-tools
       - augeas-lenses
       - libaugeas0
@@ -14,7 +14,7 @@ Debian:
   common:
     packages:
       - iptables
-      - libpython2.7
+      - libpython2.7-stdlib
       - augeas-tools
       - augeas-lenses
       - libaugeas0
