@@ -1,7 +1,7 @@
 {% from "csf/map.jinja" import csf with context %}
 csf_packages:
   pkg.installed:
-    - pkgs: {{ csf.packages }}
+    - pkgs: {{ csf.packages|yaml }}
     - require_in:
       - '*'
 csf_install:
