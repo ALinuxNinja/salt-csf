@@ -2,7 +2,6 @@ Ubuntu:
   common:
     packages:
       - iptables
-      - libpython2.7-stdlib
       - augeas-tools
       - augeas-lenses
       - libaugeas0
@@ -10,11 +9,12 @@ Ubuntu:
       - libwww-perl
       - e2fsprogs
       - unzip
+      - python-minimal
 Debian:
   common:
     packages:
       - iptables
-      - libpython2.7-stdlib
+      - python-minimal
       - augeas-tools
       - augeas-lenses
       - libaugeas0
